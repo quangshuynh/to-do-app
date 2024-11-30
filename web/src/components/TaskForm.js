@@ -11,7 +11,7 @@ const TaskForm = ({ authToken, refreshTasks }) => {
       await createTask({ title, description }, authToken);
       setTitle('');
       setDescription('');
-      refreshTasks(); // Refresh the task list after creation
+      refreshTasks(); // Refresh tasks after creation
     } catch (err) {
       console.error('Failed to create task', err);
     }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { login } from '../api';
+import { register } from '../api';
 import {
   TextField,
   Button,
@@ -9,21 +9,20 @@ import {
   Alert,
 } from '@mui/material';
 
-const Login = ({ setAuthToken }) => {
+const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await login({ username, password });
-      const token = response.data.token; // Get token from response
-      setAuthToken(token); // Pass token to App
-      localStorage.setItem('authToken', token); // Persist token
+      await register({ username, password });
+      setSuccess(true);
       setError('');
     } catch (err) {
-      setError('Invalid username or password');
+      setError('Registration failed. Try again.');
     }
   };
 
@@ -38,8 +37,11 @@ const Login = ({ setAuthToken }) => {
         }}
       >
         <Typography variant="h4" component="h1" gutterBottom>
-          Login
+          Register
         </Typography>
+        {success && (
+          <Alert severity="success">Registration successful! You can now log in.</Alert>
+        )}
         {error && <Alert severity="error">{error}</Alert>}
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2, width: '100%' }}>
           <TextField
@@ -66,7 +68,7 @@ const Login = ({ setAuthToken }) => {
             fullWidth
             sx={{ mt: 3 }}
           >
-            Login
+            Register
           </Button>
         </Box>
       </Box>
@@ -74,4 +76,4 @@ const Login = ({ setAuthToken }) => {
   );
 };
 
-export default Login;
+export default Register;
