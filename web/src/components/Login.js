@@ -7,21 +7,25 @@ import {
   Container,
   Box,
   Alert,
+  Link,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const Login = ({ setAuthToken }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await login({ username, password });
-      const token = response.data.token; // Get token from response
-      setAuthToken(token); // Pass token to App
-      localStorage.setItem('authToken', token); // Persist token
+      const token = response.data.token;
+      setAuthToken(token);
+      localStorage.setItem('authToken', token);
       setError('');
+      navigate('/tasks'); // Redirect to tasks after login
     } catch (err) {
       setError('Invalid username or password');
     }
@@ -69,6 +73,16 @@ const Login = ({ setAuthToken }) => {
             Login
           </Button>
         </Box>
+        <Typography sx={{ mt: 2 }}>
+          Don’t have an account?{' '}
+          <Link
+            component="button"
+            variant="body2"
+            onClick={() => navigate('/register')} // Navigate to Register
+          >
+            Register here
+          </Link>
+        </Typography>
       </Box>
     </Container>
   );

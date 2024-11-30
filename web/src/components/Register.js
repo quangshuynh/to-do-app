@@ -8,12 +8,14 @@ import {
   Box,
   Alert,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const Register = () => {
       await register({ username, password });
       setSuccess(true);
       setError('');
+      setTimeout(() => navigate('/login'), 2000); // Redirect to login after success
     } catch (err) {
       setError('Registration failed. Try again.');
     }
@@ -39,9 +42,7 @@ const Register = () => {
         <Typography variant="h4" component="h1" gutterBottom>
           Register
         </Typography>
-        {success && (
-          <Alert severity="success">Registration successful! You can now log in.</Alert>
-        )}
+        {success && <Alert severity="success">Registration successful! Redirecting to login...</Alert>}
         {error && <Alert severity="error">{error}</Alert>}
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2, width: '100%' }}>
           <TextField

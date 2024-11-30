@@ -14,21 +14,19 @@ const App = () => {
 
   return (
     <Router>
-      <div>
-        {authToken ? (
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          <Navigate to="/login" />
-        )}
-        <Routes>
-          <Route path="/login" element={<Login setAuthToken={setAuthToken} />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/tasks"
-            element={authToken ? <TaskList authToken={authToken} /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      </div>
+      <Routes>
+        {/* Login Route */}
+        <Route path="/login" element={<Login setAuthToken={setAuthToken} />} />
+        {/* Register Route */}
+        <Route path="/register" element={<Register />} />
+        {/* Task List Route */}
+        <Route
+          path="/tasks"
+          element={authToken ? <TaskList authToken={authToken} /> : <Navigate to="/login" />}
+        />
+        {/* Default Redirect */}
+        <Route path="/" element={<Navigate to="/login" />} />
+      </Routes>
     </Router>
   );
 };
