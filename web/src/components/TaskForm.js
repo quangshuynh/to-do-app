@@ -35,11 +35,8 @@ const TaskForm = ({ authToken, refreshTasks, handleLogout }) => {
       <AppBar position="static" sx={{ marginBottom: 3 }}>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Task Manager
+            Task Adder
           </Typography>
-          <IconButton color="inherit" onClick={handleLogout}>
-            <LogoutIcon />
-          </IconButton>
         </Toolbar>
       </AppBar>
 

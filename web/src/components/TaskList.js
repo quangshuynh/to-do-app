@@ -41,6 +41,7 @@ const TaskList = ({ authToken, handleLogout }) => {
             Task Manager
           </Typography>
           <IconButton color="inherit" onClick={handleLogout}>
+            Logout `    
             <LogoutIcon />
           </IconButton>
         </Toolbar>
