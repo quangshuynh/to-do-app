@@ -9,22 +9,24 @@ const App = () => {
 
   const handleLogout = () => {
     setAuthToken(null);
-    localStorage.removeItem('authToken'); // Clear token
+    localStorage.removeItem('authToken'); // Clear token from local storage
   };
 
   return (
     <Router>
       <Routes>
-        {/* Login Route */}
         <Route path="/login" element={<Login setAuthToken={setAuthToken} />} />
-        {/* Register Route */}
         <Route path="/register" element={<Register />} />
-        {/* Task List Route */}
         <Route
           path="/tasks"
-          element={authToken ? <TaskList authToken={authToken} /> : <Navigate to="/login" />}
+          element={
+            authToken ? (
+              <TaskList authToken={authToken} handleLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
-        {/* Default Redirect */}
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

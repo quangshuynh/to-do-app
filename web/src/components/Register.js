@@ -7,6 +7,7 @@ import {
   Container,
   Box,
   Alert,
+  Link,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -67,11 +68,21 @@ const Register = () => {
             variant="contained"
             color="primary"
             fullWidth
-            sx={{ mt: 3 }}
+            sx={{ marginTop: 2 }}
           >
             Register
           </Button>
         </Box>
+        <Typography sx={{ marginTop: 3 }}>
+          Already have an account?{' '}
+          <Link
+            component="button"
+            variant="body2"
+            onClick={() => navigate('/login')} // Navigate to Login
+          >
+            Back to Login
+          </Link>
+        </Typography>
       </Box>
     </Container>
   );

@@ -25,8 +25,8 @@ def register():
     if existing_user:
         return jsonify({"message": "Username already exists"}), 400
 
-    # Hash the password and save the user
-    hashed_pw = generate_password_hash(data['password'], method='sha256')
+    # Use a valid hash method (default is 'pbkdf2:sha256')
+    hashed_pw = generate_password_hash(data['password'])  # Default is pbkdf2:sha256
     user = User(username=data['username'], password=hashed_pw)
     db.session.add(user)
     db.session.commit()
