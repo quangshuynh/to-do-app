@@ -9,9 +9,7 @@ import {
   Paper,
   AppBar,
   Toolbar,
-  IconButton,
 } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
 
 const TaskForm = ({ authToken, refreshTasks, handleLogout }) => {
   const [title, setTitle] = useState('');
@@ -19,15 +17,19 @@ const TaskForm = ({ authToken, refreshTasks, handleLogout }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log({ title, description }); // Log the input data
+  
     try {
-      await createTask({ title, description }, authToken);
+      const response = await createTask({ title, description }, authToken);
+      console.log("Task created:", response.data); // Log the API response
       setTitle('');
       setDescription('');
-      refreshTasks(); // Refresh task list
+      refreshTasks(); // Refresh the task list
     } catch (err) {
-      console.error('Failed to create task', err);
+      console.error("Error adding task:", err.response?.data || err.message);
     }
-  };
+  };  
+  
 
   return (
     <Container maxWidth="sm">
